@@ -60,5 +60,9 @@ def train(trainLoader, testLoader):
                         trainLosses.append(runningLoss/len(trainLoader))
                         testLosses.append(testLoss/len(testLoader))
                         runningLoss = 0
+                        print(f"Epoch {epoch+1}/{epochs}.. "
+                        f"Train loss: {runningLoss/whenPrint:.3f}.. "
+                        f"Test loss: {testLoss/len(testLoader):.3f}.. "
+                        f"Test accuracy: {accuracy/len(testLoader):.3f}")
                         model.train()
     torch.save(model, 'PleaseWork.pth')
