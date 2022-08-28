@@ -1,11 +1,8 @@
 import numpy as np
 import torch
-from torch import nn
-from torch import optim
-import torch.nn.functional as F
-from torchvision import datasets, transforms, models
+from torchvision import datasets, transforms
 
-dataDir = '/data/train'
+dataDir = 'dataset/GarbageClassification'
 def loadTrainingData(dataDir, validSize = .2):
     trainTransforms = transforms.Compose([transforms.Resize(224), transforms.ToTensor(),])
     testTransforms = transforms.Compose([transforms.Resize(224), transforms.ToTensor(),])
@@ -20,8 +17,7 @@ def loadTrainingData(dataDir, validSize = .2):
     testIdx = indices[:split]
     trainSampler = SubsetRandomSampler(trainIdx)
     testSampler = SubsetRandomSampler(testIdx)
-    trainLoader = torch.utils.data.DataLoader(trainData, sampler = trainSampler, batchSize=64)
-    testLoader = torch.utils.data.DataLoader(testData, sampler = testSampler, batchSize=64)
+    trainLoader = torch.utils.data.DataLoader(trainData, batch_size = 64, sampler = trainSampler)
+    testLoader = torch.utils.data.DataLoader(testData, batch_size = 64, sampler = testSampler)
     return trainLoader, testLoader
 trainLoader, testLoader = loadTrainingData(dataDir, .2)
-print(trainLoader.dataset.classes)
