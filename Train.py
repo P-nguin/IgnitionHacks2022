@@ -1,18 +1,17 @@
 from asyncio.windows_events import NULL
-from cProfile import run
-import numpy as np
 import torch
 from torch import nn
 from torch import optim
-import torch.nn.functional as F
-from torchvision import datasets, transforms, models
+from torchvision import models
 
+device = NULL
 def train(trainLoader, testLoader):
-    device = NULL
     if(torch.cuda.is_available()): 
         device = torch.device("cuda")
+        print("gpu")
     else:
         device = torch.device("cpu")
+        print("cpu")
 
     model = models.resnet50(weights=models.ResNet50_Weights.DEFAULT)
 
